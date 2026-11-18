@@ -1,26 +1,30 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg: light-dark(#f6f4ef, #141414);
+  --color-surface: light-dark(#eeebe4, #1b1b1a);
+  --color-surface-raised: light-dark(#fbfaf7, #1e1e1d);
+  --color-line: light-dark(#e2ded5, #262523);
+  --color-line-strong: light-dark(#c9c4b9, #3a3936);
+  --color-line-hover: light-dark(#9e998f, #5c5a55);
+  --color-ink: light-dark(#1a1917, #f2f0eb);
+  --color-ink-soft: light-dark(#3a3833, #cfccc5);
+  --color-ink-muted: light-dark(#5e5a53, #a8a59e);
+  --color-ink-subtle: light-dark(#6b675f, #8e8b84);
+  --color-on-ink: light-dark(#f6f4ef, #141414);
+  --color-tint-green: light-dark(#17784f, #5bd6a0);
+  --color-tine-rose: light-dark(#b83b5e, #f08fa8);
+  --color-tink-blue: light-dark(#2f5bd3, #7fa8ff);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.light {
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  color-scheme: dark;
 }
