@@ -57,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: appearanceScript }} />
       </head>
-      <body className="min-h-full flex flex-col bg-bg text-ink transition-colors font-text w-[350px] md:w-[704px] lg:w-[936px] max-w-full mx-auto">
+      <body className="min-h-full flex flex-col bg-bg text-ink transition-colors font-text md:w-[704px] lg:w-[936px] max-w-full mx-auto px-4">
         {children}
       </body>
     </html>

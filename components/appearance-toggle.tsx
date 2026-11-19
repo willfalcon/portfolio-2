@@ -9,6 +9,7 @@ import {
   applyAppearance,
   readAppearance,
 } from "./appearance";
+import SegmentedControl from "./segmented-control";
 
 const CHANGE_EVENT = "appearancechange";
 
@@ -72,28 +73,12 @@ export default function AppearanceToggle() {
   }, []);
 
   return (
-    <fieldset className="inline-flex bg-surface-raised rounded-full border border-line p-[5px]">
-      <legend className="sr-only">Appearance</legend>
-      {appearanceOptions.map((option) => (
-        <label
-          key={option.value}
-          className="w-11 h-9 flex items-center justify-center text-ink-muted rounded-full transition-colors 
-          has-checked:bg-ink has-checked:text-on-ink 
-          has-focus-visible:outline-2 has-focus-visible:outline-offset-3 has-focus-visible:outline-ink
-          cursor-pointer"
-        >
-          <input
-            type="radio"
-            name="appearance"
-            value={option.value}
-            checked={appearance === option.value}
-            onChange={() => setAppearance(option.value)}
-            className="sr-only"
-          />
-          {option.icon}
-          <span className="sr-only">{option.label}</span>
-        </label>
-      ))}
-    </fieldset>
+    <SegmentedControl
+      title="Appearance"
+      name="appearance"
+      value={appearance || "system"}
+      onChange={(value) => setAppearance(value as Appearance)}
+      options={appearanceOptions}
+    />
   );
 }

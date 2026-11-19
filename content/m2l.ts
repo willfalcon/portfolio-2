@@ -1,7 +1,7 @@
 import { WorkItem } from "@/content/types";
 
 export const m2l: WorkItem = {
-  title: "M2L",
+  title: "M2L.tv",
   lead: "Five-minute movement videos for Mississippi classrooms. I built the whole site, a Next.js frontend over the client’s WordPress video library.",
   layers: [
     {
@@ -46,6 +46,6 @@ export const m2l: WorkItem = {
     },
   ],
   stack: ["Next.js", "headless WordPress"],
-  year: "2023",
+  year: "2022",
   link: "https://m2l.tv",
 };

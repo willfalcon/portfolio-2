@@ -1,7 +1,7 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const button = cva(
+export const button = cva(
   "flex flex-row items-center gap-2.5 rounded-full font-medium",
   {
     variants: {
@@ -10,7 +10,7 @@ const button = cva(
         secondary: "bg-transparent text-ink border border-line-hover",
       },
       size: {
-        small: "py-1 px-2 text-sm",
+        small: "py-2 px-2.5 text-sm",
         medium: "py-3 px-6 text-sm",
       },
       disabled: {

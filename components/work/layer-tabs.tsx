@@ -23,10 +23,10 @@ export default function LayerTabs({
           key={layer.id}
           onClick={() => setActiveLayer(layer.id)}
           className={cx(
-            "flex flex-col flex-1 items-start text-sm",
+            "transition-colors flex flex-col flex-1 items-start text-sm",
             isActive(layer.id) ? "text-ink" : "text-ink-muted",
             "border-t-2",
-            isActive(layer.id) ? "border-tint-green" : "border-line",
+            isActive(layer.id) ? "border-(--tint)" : "border-line",
             "cursor-pointer",
           )}
         >

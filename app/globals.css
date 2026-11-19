@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 @theme {
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --font-sans: var(--font-text);
+  --font-mono: var(--font-mono);
+
   --color-bg: light-dark(#f6f4ef, #141414);
   --color-surface: light-dark(#eeebe4, #1b1b1a);
   --color-surface-raised: light-dark(#fbfaf7, #1e1e1d);
@@ -12,9 +17,13 @@
   --color-ink-muted: light-dark(#5e5a53, #a8a59e);
   --color-ink-subtle: light-dark(#6b675f, #8e8b84);
   --color-on-ink: light-dark(#f6f4ef, #141414);
+}
+
+/* static: always emitted, since tints are referenced via runtime var() */
+@theme static {
   --color-tint-green: light-dark(#17784f, #5bd6a0);
-  --color-tine-rose: light-dark(#b83b5e, #f08fa8);
-  --color-tink-blue: light-dark(#2f5bd3, #7fa8ff);
+  --color-tint-rose: light-dark(#b83b5e, #f08fa8);
+  --color-tint-blue: light-dark(#2f5bd3, #7fa8ff);
 }
 
 :root {

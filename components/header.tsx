@@ -3,7 +3,7 @@ import AppearanceToggle from "./appearance-toggle";
 
 export default function Header() {
   return (
-    <header className="px-3 py-4">
+    <header className="py-4">
       <div className="md:flex items-center justify-between">
         <Logo />
         <nav
