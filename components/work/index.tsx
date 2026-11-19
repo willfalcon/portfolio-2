@@ -15,7 +15,7 @@ export default function Work() {
         </div>
         <hr className="my-4 border-line" />
 
-        <WorkItem {...mdhs} index={0} tint="green" />
+        <WorkItem {...mdhs} index={0} tint="green" eager />
         <WorkItem {...m2l} index={1} tint="rose" />
         <WorkItem {...skwahdle} index={2} tint="blue" aspect="portrait" />
       </section>

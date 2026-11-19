@@ -20,7 +20,7 @@ export default function WorkModeToggle() {
           icon: <Layers2 className="size-4" />,
         },
         {
-          value: "grid",
+          value: WorkMode.Grid,
           label: "Grid",
           icon: <LayoutGrid className="size-4" />,
         },

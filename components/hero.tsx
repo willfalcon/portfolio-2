@@ -1,5 +1,5 @@
 import { Download, Mail } from "lucide-react";
-import Button, { button } from "./button";
+import { button } from "./button";
 
 export default function Hero() {
   return (

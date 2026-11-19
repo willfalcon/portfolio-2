@@ -4,7 +4,7 @@ import { cx } from "class-variance-authority";
 import Image from "next/image";
 
 import { type WorkLayer } from "@/content/types";
-import { useWorkMode } from "./mode-context";
+import { useWorkMode, WorkMode } from "./mode-context";
 import { indexPad } from "@/lib/utils";
 
 interface WorkLayerProps extends WorkLayer {
@@ -13,6 +13,7 @@ interface WorkLayerProps extends WorkLayer {
   active: boolean;
   onClick: () => void;
   aspect?: "portrait" | "landscape";
+  eager?: boolean;
 }
 
 function getGridPosition(index: number, portrait: boolean = false) {
@@ -60,9 +61,10 @@ export default function WorkLayer({
   active,
   onClick,
   aspect = "landscape",
+  eager = false,
 }: WorkLayerProps) {
   const { mode } = useWorkMode();
-  const stack = mode === "stack";
+  const stack = mode === WorkMode.Stack;
   const portrait = aspect === "portrait";
   return (
     <div
@@ -84,8 +86,13 @@ export default function WorkLayer({
         alt={imageAlt}
         className="rounded-2xl object-cover w-full h-full select-none"
         draggable={false}
-        width={portrait ? 192 : 384}
-        height={portrait ? 384 : 192}
+        fill
+        sizes={
+          portrait
+            ? "(min-width: 1024px) 165px, (min-width: 768px) 125px, 18vw"
+            : "(min-width: 1024px) 420px, (min-width: 768px) 310px, 46vw"
+        }
+        loading={eager ? "eager" : undefined}
       />
       <div className="absolute w-full bottom-0 left-0 bg-surface/90 px-4 py-2 rounded-bl-2xl rounded-br-2xl flex items-center justify-between">
         <span className="font-mono text-ink-muted text-xs">

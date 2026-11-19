@@ -7,12 +7,13 @@ import type { WorkItem } from "@/content/types";
 import { indexPad } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { cx } from "class-variance-authority";
-import { useWorkMode } from "./mode-context";
+import { useWorkMode, WorkMode } from "./mode-context";
 
 interface WorkItemProps extends WorkItem {
   index: number;
   tint: "green" | "rose" | "blue";
   aspect?: "portrait" | "landscape";
+  eager?: boolean;
 }
 
 export function WorkItem({
@@ -25,11 +26,12 @@ export function WorkItem({
   tint,
   index,
   aspect = "landscape",
+  eager = false,
 }: WorkItemProps) {
   const [activeLayer, setActiveLayer] = useState(layers[0].id);
   const activeIndex = layers.findIndex((layer) => layer.id === activeLayer);
   const { mode } = useWorkMode();
-  const isStackMode = mode === "stack";
+  const isStackMode = mode === WorkMode.Stack;
 
   return (
     <div
@@ -81,6 +83,7 @@ export function WorkItem({
                 active={isActive}
                 onClick={() => setActiveLayer(layer.id)}
                 aspect={aspect}
+                eager={eager && index === 0}
               />
             );
           })}
