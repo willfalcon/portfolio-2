@@ -2,7 +2,7 @@
 
 import { Layers2, LayoutGrid } from "lucide-react";
 import SegmentedControl from "../segmented-control";
-import { useWorkMode } from "./mode-context";
+import { useWorkMode, WorkMode } from "./mode-context";
 
 export default function WorkModeToggle() {
   const { mode, setMode } = useWorkMode();
@@ -12,10 +12,10 @@ export default function WorkModeToggle() {
       title="Work mode"
       name="work-mode"
       value={mode}
-      onChange={(value) => setMode(value as "grid" | "stack")}
+      onChange={(value) => setMode(value as WorkMode)}
       options={[
         {
-          value: "stack",
+          value: WorkMode.Stack,
           label: "Stack",
           icon: <Layers2 className="size-4" />,
         },

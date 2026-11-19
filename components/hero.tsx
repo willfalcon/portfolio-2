@@ -1,5 +1,5 @@
 import { Download, Mail } from "lucide-react";
-import Button from "./button";
+import Button, { button } from "./button";
 
 export default function Hero() {
   return (
@@ -19,12 +19,16 @@ export default function Hero() {
       </p>
 
       <div className="flex gap-4 mt-10">
-        <Button>
+        <a href="mailto:willkhawks@gmail.com" className={button()}>
           <Mail className="size-4" /> Email me
-        </Button>
-        <Button intent="secondary">
+        </a>
+        <a
+          href="/Will-Hawks-Resume.pdf"
+          download
+          className={button({ intent: "secondary" })}
+        >
           <Download className="size-4" /> Resume
-        </Button>
+        </a>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { cx } from "class-variance-authority";
+import Image from "next/image";
 
 import { type WorkLayer } from "@/content/types";
 import { useWorkMode } from "./mode-context";
@@ -78,11 +79,13 @@ export default function WorkLayer({
       }
       onClick={onClick}
     >
-      <img
+      <Image
         src={image}
         alt={imageAlt}
         className="rounded-2xl object-cover w-full h-full select-none"
         draggable={false}
+        width={portrait ? 192 : 384}
+        height={portrait ? 384 : 192}
       />
       <div className="absolute w-full bottom-0 left-0 bg-surface/90 px-4 py-2 rounded-bl-2xl rounded-br-2xl flex items-center justify-between">
         <span className="font-mono text-ink-muted text-xs">

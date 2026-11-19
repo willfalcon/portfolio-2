@@ -5,9 +5,9 @@ export default function Contact() {
     <section id="contact">
       <h2 className="font-mono text-sm text-ink-muted mb-4">Contact</h2>
 
-      <p className="text-4xl md:text-5xl lg:text-6xl tracking-tight space-x-1">
-        <span className="font-display">Building something?</span>
-        <span className="font-serif italic text-ink-muted">Let's talk.</span>
+      <p className="text-4xl md:text-5xl lg:text-6xl tracking-tight space-x-1 font-display">
+        <span className="">Building something?</span>
+        <span className="italic text-ink-muted">Let&apos;s talk.</span>
       </p>
 
       <p className="text-lg text-ink-muted mb-4 mt-6 md:w-105">

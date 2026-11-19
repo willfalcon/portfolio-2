@@ -2,13 +2,20 @@
 
 import { createContext, useContext, useState } from "react";
 
+export enum WorkMode {
+  Grid = "grid",
+  Stack = "stack",
+}
+
+const DEFAULT_MODE = WorkMode.Stack;
+
 const ModeContext = createContext<{
-  mode: "grid" | "stack";
-  setMode: (mode: "grid" | "stack") => void;
-}>({ mode: "grid", setMode: () => {} });
+  mode: WorkMode;
+  setMode: (mode: WorkMode) => void;
+}>({ mode: DEFAULT_MODE, setMode: () => {} });
 
 export function WorkModeContext({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<"grid" | "stack">("stack");
+  const [mode, setMode] = useState<WorkMode>(DEFAULT_MODE);
 
   return (
     <ModeContext.Provider value={{ mode, setMode }}>

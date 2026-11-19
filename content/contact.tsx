@@ -39,6 +39,9 @@ export const contact = [
       <a
         href="https://linkedin.com/in/will-hawks"
         className={button({ intent: "secondary", size: "small" })}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
       >
         <ExternalLink className="size-4" />
       </a>
@@ -46,11 +49,14 @@ export const contact = [
   },
   {
     label: "GitHub",
-    value: "github.com/willhawks",
+    value: "github.com/willfalcon",
     button: (
       <a
-        href="https://github.com/willhawks"
+        href="https://github.com/willfalcon"
         className={button({ intent: "secondary", size: "small" })}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
       >
         <ExternalLink className="size-4" />
       </a>

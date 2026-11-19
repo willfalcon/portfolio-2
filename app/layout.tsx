@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   alternates: site ? { canonical: "/" } : undefined,
   title,
   description,
-  icons: { icon: { url: "/favicon.svg", type: "image/svg+xml" } },
   openGraph: {
     type: "website",
     title: "Will Hawks, frontend engineer",

@@ -9,7 +9,7 @@ export default function Experience() {
         {experience.map((exp, index) => (
           <li
             key={index}
-            className="md:flex align-center justify-between border-b border-line py-4"
+            className="md:flex items-center justify-between border-b border-line py-4"
           >
             <p className="text-lg">
               {exp.company}

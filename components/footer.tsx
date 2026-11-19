@@ -1,6 +1,3 @@
-import { Download, Mail } from "lucide-react";
-import Button from "./button";
-
 export default function Footer() {
   return (
     <footer className="py-12 text-ink-subtle text-xs flex items-end justify-between">

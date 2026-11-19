@@ -29,6 +29,7 @@ export default function LayerTabs({
             isActive(layer.id) ? "border-(--tint)" : "border-line",
             "cursor-pointer",
           )}
+          aria-pressed={isActive(layer.id)}
         >
           <span className="w-full h-px" />
           <span className="font-mono mt-2">{indexPad(index)}</span>
