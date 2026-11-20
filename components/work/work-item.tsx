@@ -64,7 +64,13 @@ export function WorkItem({
       </div>
       <p className="text-lg mt-4 mb-8 text-ink-muted leading-relaxed">{lead}</p>
 
-      <div className={cx("bg-surface rounded-3xl mb-4 overflow-hidden h-130")}>
+      <div
+        className={cx(
+          "bg-surface rounded-3xl mb-4 overflow-hidden",
+          // Wide cards leave empty space in a full-height stage on phones.
+          aspect === "portrait" ? "h-130" : "h-100 md:h-130",
+        )}
+      >
         <div
           className={cx(
             "relative h-full w-full perspective-[1800px] transform-3d transition-transform pointer-events-none",

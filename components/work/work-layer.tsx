@@ -16,21 +16,56 @@ interface WorkLayerProps extends WorkLayer {
   eager?: boolean;
 }
 
+interface Position {
+  left: string;
+  top: string;
+  width: string;
+  transform?: string;
+}
+
+function toVars(mobile: Position, desktop: Position = mobile) {
+  return {
+    "--left": mobile.left,
+    "--top": mobile.top,
+    "--w": mobile.width,
+    "--tf": mobile.transform ?? "none",
+    "--md-left": desktop.left,
+    "--md-top": desktop.top,
+    "--md-w": desktop.width,
+    "--md-tf": desktop.transform ?? "none",
+  } as React.CSSProperties;
+}
+
 function getGridPosition(index: number, portrait: boolean = false) {
-  const positions = portrait
-    ? [
-        { left: "5.5%", top: "50%", transform: "translateY(-50%)" },
-        { left: "29.5%", top: "50%", transform: "translateY(-50%)" },
-        { left: "53.5%", top: "50%", transform: "translateY(-50%)" },
-        { left: "77.5%", top: "50%", transform: "translateY(-50%)" },
-      ]
-    : [
-        { left: "2.5%", top: "24px" },
-        { left: "51.5%", top: "24px" },
-        { left: "2.5%", top: "266px" },
-        { left: "51.5%", top: "266px" },
-      ];
-  return positions[index % positions.length];
+  if (portrait) {
+    // Phones: 2x2, 30% wide with equal margins. Wider: one row of four.
+    const mobile = [
+      { left: "17%", top: "19px" },
+      { left: "53%", top: "19px" },
+      { left: "17%", top: "267px" },
+      { left: "53%", top: "267px" },
+    ];
+    const desktop = ["5.5%", "29.5%", "53.5%", "77.5%"];
+    const i = index % desktop.length;
+    return toVars(
+      { ...mobile[i], width: "30%" },
+      {
+        left: desktop[i],
+        top: "50%",
+        width: "18%",
+        transform: "translateY(-50%)",
+      },
+    );
+  }
+  // Phones use a shorter stage, so the rows move to stay vertically centered.
+  const mobile = ["90px", "90px", "205px", "205px"];
+  const desktop = ["24px", "24px", "266px", "266px"];
+  const i = index % desktop.length;
+  const left = i % 2 === 0 ? "2.5%" : "51.5%";
+  return toVars(
+    { left, top: mobile[i], width: "46%" },
+    { left, top: desktop[i], width: "46%" },
+  );
 }
 
 const GAP = 60;
@@ -45,11 +80,23 @@ function getStackPosition(
   const rank = index < activeIndex ? index : index - 1;
   const z = index === activeIndex ? ACTIVE_LIFT : -rank * GAP;
   const active = index === activeIndex;
-  return {
-    left: portrait ? "41%" : "27%",
-    top: portrait ? "50%" : "140px",
-    transform: `${portrait ? "translateY(-50%) " : ""}translateZ(${z}px) scale(${active ? 1.05 : 1})`,
-  };
+  const depth = `translateZ(${z}px) scale(${active ? 1.05 : 1})`;
+  if (portrait) {
+    const transform = `translateY(-50%) ${depth}`;
+    return toVars(
+      { left: "30%", top: "50%", width: "40%", transform },
+      { left: "41%", top: "50%", width: "18%", transform },
+    );
+  }
+  return toVars(
+    {
+      left: "15%",
+      top: "50%",
+      width: "70%",
+      transform: `translateY(-50%) ${depth}`,
+    },
+    { left: "27%", top: "140px", width: "46%", transform: depth },
+  );
 }
 
 export default function WorkLayer({
@@ -66,12 +113,19 @@ export default function WorkLayer({
   const { mode } = useWorkMode();
   const stack = mode === WorkMode.Stack;
   const portrait = aspect === "portrait";
+  // Small cards on phones drop the title and tighten padding and corners.
+  // Wide cards in stack mode are big enough to keep the full style.
+  const compact = portrait || !stack;
+  const corners = compact ? "rounded-lg md:rounded-2xl" : "rounded-2xl";
   return (
     <div
       className={cx(
         "transition-all",
-        `absolute inset-0 rounded-2xl border cursor-pointer pointer-events-auto`,
-        portrait ? "w-[18%] aspect-9/19.5" : "w-[46%] h-57.5",
+        "absolute inset-0 border cursor-pointer pointer-events-auto",
+        corners,
+        "left-(--left) top-(--top) w-(--w) [transform:var(--tf)]",
+        "md:left-(--md-left) md:top-(--md-top) md:w-(--md-w) md:[transform:var(--md-tf)]",
+        portrait ? "aspect-9/19.5" : "aspect-16/10 md:aspect-auto md:h-57.5",
         active ? `border-(--tint)` : "border-surface",
       )}
       style={
@@ -84,19 +138,27 @@ export default function WorkLayer({
       <Image
         src={image}
         alt={imageAlt}
-        className="rounded-2xl object-cover w-full h-full select-none"
+        className={cx("object-cover w-full h-full select-none", corners)}
         draggable={false}
         fill
         sizes={
           portrait
-            ? "(min-width: 1024px) 165px, (min-width: 768px) 125px, 18vw"
-            : "(min-width: 1024px) 420px, (min-width: 768px) 310px, 46vw"
+            ? "(min-width: 1024px) 165px, (min-width: 768px) 125px, 40vw"
+            : "(min-width: 1024px) 420px, (min-width: 768px) 310px, 70vw"
         }
         loading={eager ? "eager" : undefined}
       />
-      <div className="absolute w-full bottom-0 left-0 bg-surface/90 px-4 py-2 rounded-bl-2xl rounded-br-2xl flex items-center justify-between">
+      <div
+        className={cx(
+          "absolute w-full bottom-0 left-0 bg-surface/90 flex items-center justify-between",
+          compact
+            ? "px-2 py-1.5 md:px-4 md:py-2 rounded-b-lg md:rounded-b-2xl"
+            : "px-4 py-2 rounded-b-2xl",
+        )}
+      >
         <span className="font-mono text-ink-muted text-xs">
-          {indexPad(index)} {title}
+          {indexPad(index)}{" "}
+          <span className={cx(compact && "hidden md:inline")}>{title}</span>
         </span>
         <span
           className={cx(
